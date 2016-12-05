@@ -68,7 +68,7 @@ module AwesomeRubyToolbox
   end
 
   def hash_text(text)
-    text.downcase.gsub(/[ &]/, '-').gsub(/\//, '')
+    text.downcase.gsub(/[ ]/, '-').gsub(/[\/&]/, '')
   end
 
 
