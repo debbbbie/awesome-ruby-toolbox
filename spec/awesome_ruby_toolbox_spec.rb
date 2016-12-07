@@ -54,4 +54,8 @@ describe AwesomeRubyToolbox do
   it 'generate_markdown' do
     generate_markdown
   end
+
+  # it 'generate_markdown_ruby_china' do
+  #   generate_markdown_ruby_china
+  # end
 end

@@ -77,11 +77,11 @@ module AwesomeRubyToolbox
   #   ##less_active##: Average date of recent 20 commits is within last year
 
   # deprecated rule:
-  #   ##development_activity## is inactive and
+  #   ##development_activity## is inactive or
   #   ##watchers## is less than 50
   def gem_deprecated?(gem, gem_data)
     %w(rails3-application-templates zucker).include?( gem) or
-    (gem_data[:development_activity] == 'Inactive' and gem_data[:watchers] < 50)
+    (gem_data[:development_activity] == 'Inactive' or gem_data[:watchers] < 50)
   end
 
   def generate_markdown
@@ -115,13 +115,54 @@ module AwesomeRubyToolbox
 
 A collection of awesome Ruby libraries from https://www.ruby-toolbox.com , with removing `DRPRECATED` libraries, thanks the author colszowka!
 
-Ruby Toolbox Stats: #{status_text}
-
 #{toc}
 #{con}
   README
 
     File.write(File.expand_path("../../README.md", __FILE__), ret)
+    ret
+  end
+
+  def generate_markdown_ruby_china
+    hash        = trans_ruby_toolbox
+    status_text = hash.delete('awesome_ruby_toolbox')
+    title       = "# Awesome Ruby Toolbox"
+
+    # stati_cat_root = hash.keys.count
+    # stati_cat_secd = hash.values.map{|sec|sec.keys}.flatten.count
+    # desc = "Statistics: Have #{stati_cat_root} categories, with #{stati_cat_secd} second categories."
+
+
+    toc = hash.map do |key, data|
+
+      ["* [#{key}](##{key})", data.map do |sec, d|
+        "  * [#{sec}](##{sec})"
+      end]
+    end.flatten.join("\n")
+
+    con = hash.map do |key, second_key_data|
+
+      ["\n## #{key}", second_key_data.map do |second_key, data|
+        ["\n### #{second_key}\n", data.reject{|gem,gem_data|gem_deprecated?(gem, gem_data)}.map do |gem, gem_data|
+          "* [#{gem}](#{gem_data[:src]}) - #{gem_data[:desc]}"
+        end]
+      end]
+    end.flatten.join("\n")
+
+    ret = <<-README
+#{title} [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+
+www.ruby-toolbox.com 收集了 Ruby 常用的 Gem, 并作出清晰合理的分类, 已经有将近 200 个分类、2000多个 Gem。
+
+本篇对 Ruby Toolbox 进行了整理,并移除已经废弃的 Gem, 最终以 markdown 格式呈现给大家,使大家可以用自己喜欢的方式阅读、学习。
+
+欢迎 Star & Fork, 多提宝贵意见 ~~ https://github.com/debbbbie/awesome-ruby-toolbox
+
+#{toc}
+#{con}
+  README
+
+    File.write(File.expand_path("../../README_RUBY_CHINA.md", __FILE__), ret)
     ret
   end
 end
