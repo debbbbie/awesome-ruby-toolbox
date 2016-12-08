@@ -103,7 +103,7 @@ module AwesomeRubyToolbox
 
     con = hash.map do |key, second_key_data|
 
-      ["\n## #{key}", second_key_data.map do |second_key, data|
+      ["\n## #{key}", second_key_data.reject{|second_key, data|['Active Record DB Adapters'].member? second_key}.map do |second_key, data|
         ["\n### #{second_key}\n", data.reject{|gem,gem_data|gem_deprecated?(gem, gem_data)}.map do |gem, gem_data|
           "* [#{gem}](#{gem_data[:src]}) - #{gem_data[:desc]}"
         end]
@@ -115,7 +115,6 @@ module AwesomeRubyToolbox
 
 A collection of awesome Ruby libraries from https://www.ruby-toolbox.com , with removing `DRPRECATED` libraries, thanks the author colszowka!
 
-#{toc}
 #{con}
   README
 
