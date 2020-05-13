@@ -12,7 +12,7 @@ A collection of awesome Ruby libraries from https://www.ruby-toolbox.com , with 
 
 * [enumerize](https://github.com/brainspec/enumerize) - Enumerated attributes with I18n and ActiveRecord/Mongoid/MongoMapper support
 * [Simple enum](https://github.com/lwe/simple_enum) - Provides enum-like fields for ActiveRecord, ActiveModel and Mongoid models.
-* [Enumerate it](https://github.com/cassiomarques/enumerate_it) - Enumerations for Ruby with some magic powers!
+* [Enumerate it](https://github.com/lucascaton/enumerate_it) - Enumerations for Ruby with some magic powers!
 
 ### Active Record Index Assistants
 
